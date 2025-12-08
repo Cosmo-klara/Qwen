@@ -1,0 +1,14 @@
+cache/
+checkpoints/
+__pycache__/
+LICENSE
+*.pyc
+
+output/
+
+Qwen2.5-Omni/
+
+
+
+
+
