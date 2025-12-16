@@ -6,7 +6,7 @@ from vllm import LLM, SamplingParams
 from torch import bfloat16
 
 os.environ["VLLM_USE_MODELSCOPE"] = "True"
-os.environ["CUDA_VISIBLE_DEVICES"] = "1,7"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1,2"
 os.environ["VLLM_USE_V1"] = "0"
 
 def load_video_frames_fixed(
@@ -88,7 +88,7 @@ def build_inputs_from_video(video_path, question, system_prompt=None):
 
 if __name__ == "__main__":
 
-    model_name = "../cache/modelscope/Qwen/Qwen2.5-Omni-3B"
+    model_name = "./cache/modelscope/Qwen/Qwen2.5-Omni-3B"
 
     import argparse
     parser = argparse.ArgumentParser(description="Run vLLM inference on a local video or dataset with 2 fps sampling")
@@ -107,9 +107,10 @@ if __name__ == "__main__":
     llm = LLM(
         model=model_name,
         dtype=bfloat16,
-        max_model_len=8192,
+        max_model_len=32760,
         max_num_seqs=5,
         limit_mm_per_prompt=limits,
+        gpu_memory_utilization=0.6,
         seed=args.seed,
         trust_remote_code=True,
     )
